@@ -6,12 +6,12 @@ from functools import wraps
 from flask import Flask, render_template, request, redirect, url_for, flash, session
 
 app = Flask(__name__)
-app.secret_key = "apiario_quino_secret_key"
+app.secret_key = os.environ.get("SECRET_KEY", "cambia-esto-en-produccion")
 
 NUMERO_WHATSAPP = "51940849095"
 
-USUARIO_ADMIN = "JHENNYFER050607jm20"
-CLAVE_ADMIN = "25262"
+USUARIO_ADMIN = os.environ.get("USUARIO_ADMIN", "admin")
+CLAVE_ADMIN = os.environ.get("CLAVE_ADMIN", "123456")
 
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 DB_DIR = os.path.join(BASE_DIR, "database")
