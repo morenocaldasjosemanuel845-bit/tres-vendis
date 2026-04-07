@@ -7,12 +7,13 @@
 </head>
 <body>
     <div class="contenedor">
-        <img src="{{ url_for('static', filename='logo.jpeg') }}" alt="Logo Panes Artesanales Las 3 Bendiciones" class="logo">
+        <img src="{{ url_for('static', filename='logopan.png') }}" alt="Logo Panes Artesanales Las 3 Bendiciones" class="logo">
         <h1>Tienda virtual - Panes Artesanales Las 3 Bendiciones</h1>
         <h2>"Azuvalentina y Kiory"</h2>
 
         <div class="acciones-superiores">
             <a href="{{ url_for('ver_carrito') }}">Ver carrito</a>
+            <a href="{{ url_for('login') }}">Ingresar al panel</a>
         </div>
 
         <div class="productos">
