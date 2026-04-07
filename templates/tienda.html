@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Tienda virtual - Panes Artesanales Las 3 Bendiciones</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <div class="contenedor">
+        <img src="{{ url_for('static', filename='logo.jpeg') }}" alt="Logo Panes Artesanales Las 3 Bendiciones" class="logo">
+        <h1>Tienda virtual - Panes Artesanales Las 3 Bendiciones</h1>
+        <h2>"Azuvalentina y Kiory"</h2>
+
+        <div class="acciones-superiores">
+            <a href="{{ url_for('ver_carrito') }}">Ver carrito</a>
+        </div>
+
+        <div class="productos">
+            {% if productos %}
+                {% for producto in productos %}
+                    <div class="producto">
+                        {% if producto.imagen %}
+                            <img src="{{ url_for('static', filename='uploads/' + producto.imagen) }}" alt="{{ producto.nombre }}">
+                        {% endif %}
+                        <h2>{{ producto.nombre }}</h2>
+                        <p>S/ {{ "%.2f"|format(producto.precio) }}</p>
+                        <a href="{{ url_for('comprar', id=producto.id) }}">Agregar al carrito</a>
+                    </div>
+                {% endfor %}
+            {% else %}
+                <p class="mensaje-vacio">No hay productos disponibles todavía.</p>
+            {% endif %}
+        </div>
+    </div>
+</body>
+</html>

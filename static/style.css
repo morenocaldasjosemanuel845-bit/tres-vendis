@@ -1,0 +1,166 @@
+body {
+    font-family: Arial, sans-serif;
+    background: #f3ede0;
+    margin: 0;
+    padding: 0;
+}
+
+.contenedor {
+    width: 90%;
+    max-width: 1100px;
+    margin: 30px auto;
+    text-align: center;
+}
+
+.logo {
+    width: 100%;
+    max-width: 720px;
+    height: auto;
+    margin-bottom: 20px;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.18);
+}
+
+.acciones-superiores {
+    margin: 20px 0;
+}
+
+.acciones-superiores a,
+.producto a,
+button,
+a {
+    display: inline-block;
+    margin: 8px;
+    padding: 12px 18px;
+    background: #d4a017;
+    color: white;
+    text-decoration: none;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+    font-size: 18px;
+    transition: 0.3s;
+}
+
+.acciones-superiores a:hover,
+.producto a:hover,
+button:hover,
+a:hover {
+    background: #b8860b;
+}
+
+.btn-eliminar {
+    background: #c0392b;
+}
+
+.btn-eliminar:hover {
+    background: #922b21;
+}
+
+.productos {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: 20px;
+    margin-top: 20px;
+}
+
+.producto {
+    background: white;
+    border: 1px solid #e0d2a8;
+    border-radius: 12px;
+    padding: 15px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+}
+
+.producto img {
+    width: 100%;
+    height: 220px;
+    object-fit: cover;
+    border-radius: 10px;
+}
+
+.form-admin {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    max-width: 400px;
+    margin: 0 auto 30px auto;
+}
+
+.form-admin input {
+    padding: 12px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    font-size: 16px;
+}
+
+.mensaje-exito {
+    color: green;
+    font-weight: bold;
+    font-size: 18px;
+}
+
+.mensaje-error {
+    color: #c0392b;
+    font-weight: bold;
+    font-size: 18px;
+}
+
+.mensaje-vacio {
+    font-size: 20px;
+    font-weight: bold;
+    color: #555;
+    grid-column: 1 / -1;
+}
+
+.lista-carrito {
+    list-style: none;
+    padding: 0;
+    font-size: 20px;
+}
+
+h1 {
+    font-size: 38px;
+    margin-bottom: 10px;
+    color: #8b0000;
+}
+
+h2 {
+    font-size: 24px;
+    color: #d35400;
+    margin-top: 0;
+    margin-bottom: 20px;
+    font-style: italic;
+}
+
+h3 {
+    font-size: 28px;
+    color: #5d4037;
+}
+
+p, li {
+    font-size: 22px;
+    color: #333;
+}
+
+@media (max-width: 768px) {
+    .logo {
+        max-width: 100%;
+    }
+
+    h1 {
+        font-size: 28px;
+    }
+
+    h2 {
+        font-size: 20px;
+    }
+
+    p, li,
+    .acciones-superiores a,
+    .producto a,
+    button,
+    a {
+        font-size: 18px;
+    }
+}
