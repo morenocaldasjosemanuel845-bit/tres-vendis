@@ -1,46 +1,35 @@
-<!DOCTYPE html>
-<html lang="es">
-<head>
-    <meta charset="UTF-8">
-    <title>Panel de control - Panes Artesanales Las 3 Bendiciones</title>
-    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
-</head>
-<body>
-    <div class="contenedor">
-        <img src="{{ url_for('static', filename='logopan.png') }}" alt="Logo Panes Artesanales Las 3 Bendiciones" class="logo">
-        <h1>Panel de control - Panes Artesanales Las 3 Bendiciones</h1>
-        <h2>"Azuvalentina y Kiory"</h2>
+{% extends 'base.html' %}
+{% block title %}Panel de control{% endblock %}
+{% block content %}
+<h1>Panel de control - Panes Artesanales Las 3 Bendiciones</h1>
+<h2>"Azuvalentina y Kiory"</h2>
 
-        {% with messages = get_flashed_messages() %}
-            {% if messages %}
-                {% for message in messages %}
-                    <p class="mensaje-exito">{{ message }}</p>
-                {% endfor %}
-            {% endif %}
-        {% endwith %}
+<div class="acciones-superiores">
+    <a href="{{ url_for('agregar_producto') }}">Agregar producto</a>
+    <a href="{{ url_for('tienda_virtual') }}">Ver tienda virtual</a>
+    <form method="POST" action="{{ url_for('logout') }}" class="form-inline">
+        <button type="submit" class="btn-eliminar">Cerrar sesión</button>
+    </form>
+</div>
 
-        <div class="acciones-superiores">
-            <a href="{{ url_for('agregar_producto') }}">Agregar producto</a>
-            <a href="{{ url_for('tienda_virtual') }}">Ver tienda virtual</a>
-            <a href="{{ url_for('logout') }}" class="btn-eliminar">Cerrar sesión</a>
-        </div>
-
-        <div class="productos">
-            {% if productos %}
-                {% for producto in productos %}
-                    <div class="producto">
-                        {% if producto.imagen %}
-                            <img src="{{ url_for('static', filename='uploads/' + producto.imagen) }}" alt="{{ producto.nombre }}">
-                        {% endif %}
-                        <h2>{{ producto.nombre }}</h2>
-                        <p>S/ {{ "%.2f"|format(producto.precio) }}</p>
-                        <a href="{{ url_for('eliminar_producto', id=producto.id) }}" class="btn-eliminar">Eliminar</a>
-                    </div>
-                {% endfor %}
-            {% else %}
-                <p class="mensaje-vacio">No hay productos registrados todavía.</p>
-            {% endif %}
-        </div>
-    </div>
-</body>
-</html>
+<div class="productos">
+    {% if productos %}
+        {% for producto in productos %}
+            <div class="producto">
+                {% if producto.imagen %}
+                    <img src="{{ url_for('static', filename='uploads/' + producto.imagen) }}" alt="{{ producto.nombre }}">
+                {% else %}
+                    <div class="sin-imagen">Sin imagen</div>
+                {% endif %}
+                <h2>{{ producto.nombre }}</h2>
+                <p>S/ {{ '%.2f'|format(producto.precio) }}</p>
+                <form method="POST" action="{{ url_for('eliminar_producto', id=producto.id) }}">
+                    <button type="submit" class="btn-eliminar">Eliminar</button>
+                </form>
+            </div>
+        {% endfor %}
+    {% else %}
+        <p class="mensaje-vacio">No hay productos registrados todavía.</p>
+    {% endif %}
+</div>
+{% endblock %}

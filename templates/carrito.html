@@ -1,34 +1,27 @@
-<!DOCTYPE html>
-<html lang="es">
-<head>
-    <meta charset="UTF-8">
-    <title>Carrito de compras - Panes Artesanales Las 3 Bendiciones</title>
-    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
-</head>
-<body>
-    <div class="contenedor">
-        <img src="{{ url_for('static', filename='logopan.png') }}" alt="Logo Panes Artesanales Las 3 Bendiciones" class="logo">
-        <h1>Carrito de compras</h1>
-        <h2>"Azuvalentina y Kiory"</h2>
+{% extends 'base.html' %}
+{% block title %}Carrito de compras{% endblock %}
+{% block content %}
+<h1>Carrito de compras</h1>
+<h2>"Azuvalentina y Kiory"</h2>
 
-        {% if carrito %}
-            <ul class="lista-carrito">
-                {% for producto in carrito %}
-                    <li>{{ producto.nombre }} - S/ {{ "%.2f"|format(producto.precio) }}</li>
-                {% endfor %}
-            </ul>
+{% if carrito %}
+    <ul class="lista-carrito card">
+        {% for producto in carrito %}
+            <li>{{ producto.nombre }} - S/ {{ '%.2f'|format(producto.precio) }}</li>
+        {% endfor %}
+    </ul>
 
-            <h3>Total: S/ {{ "%.2f"|format(total) }}</h3>
+    <h3>Total: S/ {{ '%.2f'|format(total) }}</h3>
 
-            <a href="{{ url_for('enviar_whatsapp') }}">Enviar pedido por WhatsApp</a>
-            <a href="{{ url_for('vaciar_carrito') }}">Vaciar carrito</a>
-        {% else %}
-            <p>Tu carrito está vacío.</p>
-        {% endif %}
-
-        <p>
-            <a href="{{ url_for('tienda_virtual') }}">Seguir comprando</a>
-        </p>
+    <div class="acciones-superiores">
+        <a href="{{ url_for('enviar_whatsapp') }}">Enviar pedido por WhatsApp</a>
+        <form method="POST" action="{{ url_for('vaciar_carrito') }}" class="form-inline">
+            <button type="submit" class="btn-eliminar">Vaciar carrito</button>
+        </form>
     </div>
-</body>
-</html>
+{% else %}
+    <p>Tu carrito está vacío.</p>
+{% endif %}
+
+<p><a class="link-simple" href="{{ url_for('tienda_virtual') }}">Seguir comprando</a></p>
+{% endblock %}
