@@ -92,8 +92,8 @@ def tienda_virtual():
 @app.route("/login", methods=["GET", "POST"])
 def login():
     if request.method == "POST":
-        usuario = request.form["usuario"].strip()
-        clave = request.form["clave"].strip()
+        usuario = request.form.get("usuario", "").strip()
+        clave = request.form.get("clave", "").strip()
 
         if usuario == USUARIO_ADMIN and clave == CLAVE_ADMIN:
             session["admin_logueado"] = True
@@ -122,12 +122,18 @@ def panel_de_control():
 @login_requerido
 def agregar_producto():
     if request.method == "POST":
-        nombre = request.form["nombre"].strip()
-        precio = request.form["precio"].strip()
-        imagen = request.files["imagen"]
+        nombre = request.form.get("nombre", "").strip()
+        precio = request.form.get("precio", "").strip()
+        imagen = request.files.get("imagen")
 
         if not nombre or not precio:
             flash("Completa el nombre y el precio.")
+            return redirect(url_for("agregar_producto"))
+
+        try:
+            precio_float = float(precio)
+        except ValueError:
+            flash("El precio debe ser un número válido.")
             return redirect(url_for("agregar_producto"))
 
         nombre_imagen = None
@@ -142,7 +148,7 @@ def agregar_producto():
         cursor = conexion.cursor()
         cursor.execute(
             "INSERT INTO productos (nombre, precio, imagen) VALUES (?, ?, ?)",
-            (nombre, float(precio), nombre_imagen)
+            (nombre, precio_float, nombre_imagen)
         )
         conexion.commit()
         conexion.close()
@@ -227,6 +233,14 @@ def enviar_whatsapp():
     mensaje_codificado = quote(mensaje)
     url_whatsapp = f"https://wa.me/{NUMERO_WHATSAPP}?text={mensaje_codificado}"
     return redirect(url_whatsapp)
+
+
+@app.errorhandler(500)
+def error_interno(error):
+    return """
+    <h1>Error interno del servidor</h1>
+    <p>El servidor encontró un error interno y no pudo completar tu solicitud. O bien el servidor está sobrecargado o hay un error en la aplicación.</p>
+    """, 500
 
 
 if __name__ == "__main__":
