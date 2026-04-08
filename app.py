@@ -101,7 +101,14 @@ def login():
         else:
             flash("Usuario o contraseña incorrectos.")
 
-    return render_template("login.html")
+    return """
+    <h2>Login funcionando</h2>
+    <form method="POST">
+        <input type="text" name="usuario" placeholder="Usuario"><br><br>
+        <input type="password" name="clave" placeholder="Contraseña"><br><br>
+        <button type="submit">Ingresar</button>
+    </form>
+    """
 
 
 @app.route("/logout")
@@ -242,6 +249,9 @@ def error_interno(error):
     <p>El servidor encontró un error interno y no pudo completar tu solicitud. O bien el servidor está sobrecargado o hay un error en la aplicación.</p>
     """, 500
 
+@app.errorhandler(Exception)
+def manejar_error(e):
+    return f"<h1>Error real</h1><pre>{str(e)}</pre>", 500
 
 if __name__ == "__main__":
     app.run(debug=True)
